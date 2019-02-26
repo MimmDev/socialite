@@ -53,7 +53,7 @@ public class User {
 		neighbours.forEach(neighbour -> userList.add((User)neighbour));
 		
 		for (int i = 0; i < postList.length; i++) {
-			if (RandomHelper.nextDouble() > 0.0191) {
+			if (RandomHelper.nextDouble() <= 0.0191) {
 				for (int y = 0; y < userList.size(); y++) {
 					userList.get(y).receivePost(postList[i]);
 				}

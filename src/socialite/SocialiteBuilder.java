@@ -6,6 +6,7 @@ import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.graph.Network;
+import repast.simphony.context.space.graph.WattsBetaSmallWorldGenerator;
 
 public class SocialiteBuilder implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
@@ -25,27 +26,24 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		database.addPost(new Post(false));
 		
 		// Create array of users and assign random posts
-		User[] userList = new User[100];
+		User[] userList = new User[1000];
 		for (int i = 0; i < userList.length; i++) {
+			System.out.println("Generating user: " + i);
 			userList[i] = new User(network, database);
 			context.add(userList[i]);
 
-			for (int j = 0; j < 1; j++) {
+			for (int j = 0; j < 5; j++) {
 				userList[i].receivePost(RandomHelper.nextIntFromTo(0, database.size()-1));
 			}
 		}
-
-		// Add random edges between users
-		for (int i = 0; i < userList.length; i++) {
-			for (int y = 0; y < userList.length; y++) {
-				if (i != y) {
-					double randDouble = RandomHelper.nextDouble();
-					if (randDouble > 0.99) {
-						network.addEdge(userList[i], userList[y]);
-					}
-				}
-			}
-		}
+		
+		final int DEGREE = 10;
+		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.5, DEGREE, true);
+		NetworkHelper.constructRingLattice(userList, network, DEGREE);
+		
+		System.out.println("Generating small world network...");
+		network = test.createNetwork(network);
+		System.out.println("Small world network ready!");
 		
 		return context;
 	}

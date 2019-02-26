@@ -1,0 +1,2 @@
+"Susceptible","Infected"
+95.0,5.0

@@ -1,0 +1,11 @@
+<repast.simphony.data2.engine.ConsoleSinkDescriptor simphonyVersion="2.6.0">
+  <name>Console Sink</name>
+  <dataSet>Infected Set</dataSet>
+  <delimiter>,</delimiter>
+  <format>LINE</format>
+  <sourceIds class="linked-hash-set">
+    <string>tick</string>
+  </sourceIds>
+  <enabled>true</enabled>
+  <outputStream>OUT</outputStream>
+</repast.simphony.data2.engine.ConsoleSinkDescriptor>
