@@ -1,6 +1,7 @@
 package socialite;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
@@ -9,12 +10,15 @@ import repast.simphony.space.graph.Network;
 
 public class User {
 	private Network<Object> network;
-	private Queue<Post> inventory;
+	private Queue<Integer> inventory;
+	private Database database;
 	private boolean infected;
 	
-	public User(Network<Object> network, Queue<Post> inventory) {
+	public User(Network<Object> network, Database database) {
 		this.network = network;
-		this.inventory = inventory;
+		this.database = database;
+		
+		this.inventory = new LinkedList<Integer>();
 		this.infected = false;
 	}
 	
@@ -23,22 +27,19 @@ public class User {
 		this.share(this.check());
 	}
 	
-	public Post[] check() {
+	public int[] check() {
 		int numPosts;
 		if (this.inventory.size() < 10) {
 			numPosts = this.inventory.size();
 		} else {
 			numPosts = 10;
 		}
-		
-		System.out.println(this.inventory.size());
-				
-		Post[] topPosts = new Post[numPosts];
+						
+		int[] topPosts = new int[numPosts];
 		for (int i = 0; i < topPosts.length; i++) {
 			topPosts[i] = this.inventory.poll();
-			
-			
-			if (!topPosts[i].isLegitimate()) {
+						
+			if (!this.database.getPost(topPosts[i]).isLegitimate()) {
 				this.infected = true;
 			}
 		}
@@ -46,7 +47,7 @@ public class User {
 		return topPosts;
 	}
 	
-	public void share(Post[] postList) {
+	public void share(int[] postList) {
 		ArrayList<User> userList = new ArrayList<User>();
 		Iterable<Object> neighbours = network.getAdjacent(this);
 		neighbours.forEach(neighbour -> userList.add((User)neighbour));
@@ -54,15 +55,16 @@ public class User {
 		for (int i = 0; i < postList.length; i++) {
 			if (RandomHelper.nextDouble() > 0.0191) {
 				for (int y = 0; y < userList.size(); y++) {
-						// TODO: If double > probability, share to ALL users not to one!
-						userList.get(y).receivePost(postList[i]);
+					userList.get(y).receivePost(postList[i]);
 				}
 			}
 		}
 	}
 	
-	public void receivePost(Post post) {
-		this.inventory.add(post);
+	public void receivePost(int postID) {
+		if (!this.inventory.contains(postID)) {
+			this.inventory.add(postID);
+		}
 	}
 	
 	public boolean isInfected() {

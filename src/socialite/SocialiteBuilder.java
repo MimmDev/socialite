@@ -1,8 +1,6 @@
 package socialite;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 import repast.simphony.context.Context;
 import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.dataLoader.ContextBuilder;
@@ -13,30 +11,31 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
 		context.setId("socialite");
 		
+		// Create network for users to be placed in
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("social network", context, false);
 		Network<Object> network = netBuilder.buildNetwork();
 		
-		Post[] postList = new Post[10];
-		for (int i = 0; i < 10; i++) {
+		// Create database of posts
+		ArrayList<Post> postList = new ArrayList<Post>();
+		for (int i = 0; i < 100; i++) {
 			Post post = new Post(true);
-			postList[i] = post;
+			postList.add(post);
 		}
+		Database database = new Database(postList);
+		database.addPost(new Post(false));
 		
-		Queue<Post> postQueue = new LinkedList<Post>();
-		Collections.addAll(postQueue, postList);
-		
-		User[] userList = new User[10];
+		// Create array of users and assign random posts
+		User[] userList = new User[100];
 		for (int i = 0; i < userList.length; i++) {
-			userList[i] = new User(network, new LinkedList<Post>(postQueue));
+			userList[i] = new User(network, database);
 			context.add(userList[i]);
+
+			for (int j = 0; j < 1; j++) {
+				userList[i].receivePost(RandomHelper.nextIntFromTo(0, database.size()-1));
+			}
 		}
-		
-		userList[0].receivePost(new Post(false));
-		userList[1].receivePost(new Post(false));
-		userList[2].receivePost(new Post(false));
-		userList[3].receivePost(new Post(false));
-		userList[4].receivePost(new Post(false));
-		
+
+		// Add random edges between users
 		for (int i = 0; i < userList.length; i++) {
 			for (int y = 0; y < userList.length; y++) {
 				if (i != y) {
