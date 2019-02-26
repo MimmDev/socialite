@@ -1,0 +1,62 @@
+2019-02-25 22:30:06,516 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2019-02-25 22:30:06,537 - Created: 20 parsers.
+2019-02-25 22:30:06,540 - Velocimacro : initialization starting.
+2019-02-25 22:30:06,540 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2019-02-25 22:30:06,542 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2019-02-25 22:30:06,542 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2019-02-25 22:30:06,542 - Velocimacro :  VM library template macro registration complete.
+2019-02-25 22:30:06,542 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2019-02-25 22:30:06,542 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2019-02-25 22:30:06,542 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2019-02-25 22:30:06,542 - Velocimacro : messages on  : VM system will output logging messages
+2019-02-25 22:30:06,542 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2019-02-25 22:30:06,542 - Velocimacro : initialization complete.
+2019-02-25 22:30:06,542 - Velocity successfully started.
+9-02-25 22:30:06,524 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2019-02-25 22:30:06,525 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2019-02-25 22:30:06,526 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2019-02-25 22:30:06,527 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2019-02-25 22:30:06,543 - Created: 20 parsers.
+2019-02-25 22:30:06,546 - Velocimacro : initialization starting.
+2019-02-25 22:30:06,546 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2019-02-25 22:30:06,548 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2019-02-25 22:30:06,549 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2019-02-25 22:30:06,549 - Velocimacro :  VM library template macro registration complete.
+2019-02-25 22:30:06,549 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2019-02-25 22:30:06,549 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2019-02-25 22:30:06,549 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2019-02-25 22:30:06,549 - Velocimacro : messages on  : VM system will output logging messages
+2019-02-25 22:30:06,549 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2019-02-25 22:30:06,549 - Velocimacro : initialization complete.
+2019-02-25 22:30:06,549 - Velocity successfully started.
+2019-02-25 22:31:24,657 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2019-02-25 22:31:24,657 - ************************************************************** 
+2019-02-25 22:31:24,657 - Starting Jakarta Velocity v1.4
+2019-02-25 22:31:24,657 - RuntimeInstance initializing.
+2019-02-25 22:31:24,657 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2019-02-25 22:31:24,657 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2019-02-25 22:31:24,657 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2019-02-25 22:31:24,659 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2019-02-25 22:31:24,660 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2019-02-25 22:31:24,660 - ClasspathResourceLoader : initialization starting.
+2019-02-25 22:31:24,660 - ClasspathResourceLoader : initialization complete.
+2019-02-25 22:31:24,660 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2019-02-25 22:31:24,660 - Default ResourceManager initialization complete.
+2019-02-25 22:31:24,661 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2019-02-25 22:31:24,662 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2019-02-25 22:31:24,663 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2019-02-25 22:31:24,664 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2019-02-25 22:31:24,664 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2019-02-25 22:31:24,679 - Created: 20 parsers.
+2019-02-25 22:31:24,682 - Velocimacro : initialization starting.
+2019-02-25 22:31:24,682 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2019-02-25 22:31:24,684 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2019-02-25 22:31:24,684 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2019-02-25 22:31:24,684 - Velocimacro :  VM library template macro registration complete.
+2019-02-25 22:31:24,684 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2019-02-25 22:31:24,684 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2019-02-25 22:31:24,684 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2019-02-25 22:31:24,684 - Velocimacro : messages on  : VM system will output logging messages
+2019-02-25 22:31:24,684 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2019-02-25 22:31:24,684 - Velocimacro : initialization complete.
+2019-02-25 22:31:24,684 - Velocity successfully started.
