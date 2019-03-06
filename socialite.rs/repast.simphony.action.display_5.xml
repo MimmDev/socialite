@@ -6,11 +6,19 @@
       <string>socialite.User</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
+    <entry>
+      <string>socialite.Distributor</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
   </styles>
   <editedStyles>
     <entry>
       <string>socialite.User</string>
       <string>socialite.User.style_1.xml</string>
+    </entry>
+    <entry>
+      <string>socialite.Distributor</string>
+      <string>socialite.Distributor.style_4.xml</string>
     </entry>
   </editedStyles>
   <netStyles>
@@ -33,7 +41,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1504874234</hashCode>
+    <hashCode>393315099</hashCode>
   </schedParams>
   <layoutClassName>repast.simphony.visualization.visualization2D.layout.CircleLayout2D</layoutClassName>
   <layoutProjection>social network</layoutProjection>
@@ -41,6 +49,10 @@
   <layerOrder>
     <entry>
       <string>socialite.User</string>
+      <int>1</int>
+    </entry>
+    <entry>
+      <string>socialite.Distributor</string>
       <int>0</int>
     </entry>
   </layerOrder>

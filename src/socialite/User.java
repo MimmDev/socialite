@@ -8,15 +8,12 @@ import repast.simphony.engine.schedule.ScheduledMethod;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.graph.Network;
 
-public class User {
-	private Network<Object> network;
+public class User extends Member {
 	private Queue<Integer> inventory;
-	private Database database;
 	private boolean infected;
 	
 	public User(Network<Object> network, Database database) {
-		this.network = network;
-		this.database = database;
+		super(network, database);
 		
 		this.inventory = new LinkedList<Integer>();
 		this.infected = false;
@@ -39,7 +36,7 @@ public class User {
 		for (int i = 0; i < topPosts.length; i++) {
 			topPosts[i] = this.inventory.poll();
 						
-			if (!this.database.getPost(topPosts[i]).isLegitimate()) {
+			if (!this.getDatabase().getPost(topPosts[i]).isLegitimate()) {
 				this.infected = true;
 			}
 		}
@@ -48,9 +45,9 @@ public class User {
 	}
 	
 	public void share(int[] postList) {
-		ArrayList<User> userList = new ArrayList<User>();
-		Iterable<Object> neighbours = network.getAdjacent(this);
-		neighbours.forEach(neighbour -> userList.add((User)neighbour));
+		ArrayList<Member> userList = new ArrayList<Member>();
+		Iterable<Object> neighbours = this.getNetwork().getAdjacent(this);
+		neighbours.forEach(neighbour -> userList.add((Member)neighbour));
 		
 		for (int i = 0; i < postList.length; i++) {
 			if (RandomHelper.nextDouble() <= 0.0191) {

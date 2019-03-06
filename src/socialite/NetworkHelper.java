@@ -1,7 +1,5 @@
 package socialite;
 
-import java.util.ArrayList;
-
 import repast.simphony.space.graph.Network;
 
 public class NetworkHelper {

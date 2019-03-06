@@ -917,3 +917,25 @@ Caused by: java.lang.IndexOutOfBoundsException: Index 107 out of bounds for leng
 	at repast.simphony.visualization.engine.AbstractCartesianDisplayCreator.createLayout(AbstractCartesianDisplayCreator.java:59)
 	at repast.simphony.visualization.engine.DisplayCreatorOGL2D.createDisplay(DisplayCreatorOGL2D.java:62)
 	... 48 more
+FATAL [Thread-11] 2019-03-06 19:42:19,186 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (1.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:333)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at socialite.User$$FastClassByCGLIB$$4c5cab2c.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.ClassCastException: class socialite.Distributor cannot be cast to class socialite.User (socialite.Distributor and socialite.User are in unnamed module of loader repast.simphony.plugin.ExtendablePluginClassLoader @2eadc9f6)
+	at socialite.User.lambda$0(User.java:53)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at socialite.User.share(User.java:53)
+	at socialite.User.run(User.java:27)
+	... 10 more

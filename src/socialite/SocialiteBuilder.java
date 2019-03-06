@@ -18,7 +18,7 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		
 		// Create database of posts
 		ArrayList<Post> postList = new ArrayList<Post>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1; i++) {
 			Post post = new Post(true);
 			postList.add(post);
 		}
@@ -33,17 +33,23 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 			context.add(userList[i]);
 
 			for (int j = 0; j < 5; j++) {
-				userList[i].receivePost(RandomHelper.nextIntFromTo(0, database.size()-1));
+				userList[i].receivePost(0);
 			}
 		}
 		
-		final int DEGREE = 10;
+		final int DEGREE = 4;
 		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.5, DEGREE, true);
 		NetworkHelper.constructRingLattice(userList, network, DEGREE);
 		
 		System.out.println("Generating small world network...");
 		network = test.createNetwork(network);
 		System.out.println("Small world network ready!");
+		
+		Distributor distributor = new Distributor(network, database);
+		context.add(distributor);
+		for (int i = 0; i < 100; i++) {
+			network.addEdge(distributor, userList[RandomHelper.nextIntFromTo(0, userList.length - 1)]);
+		}
 		
 		return context;
 	}
