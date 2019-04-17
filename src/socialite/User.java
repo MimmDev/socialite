@@ -12,16 +12,26 @@ public class User extends Member {
 	private Queue<Integer> inventory;
 	private boolean infected;
 	
+	// Proposed new variables
+	private double reportProbability;
+	private double counterProbability;
+	private double gullibility;
+	private double bias;
+	private int age;
+	
 	public User(Network<Object> network, Database database) {
 		super(network, database);
 		
 		this.inventory = new LinkedList<Integer>();
 		this.infected = false;
+		this.bias = RandomHelper.nextDoubleFromTo(-5, 5);
 	}
 	
 	@ScheduledMethod(start = 1, interval = 1)
 	public void run() {
-		this.share(this.check());
+		if (RandomHelper.nextDouble() < 0.583) {
+			this.check();
+		}
 	}
 	
 	public int[] check() {
@@ -36,8 +46,9 @@ public class User extends Member {
 		for (int i = 0; i < topPosts.length; i++) {
 			topPosts[i] = this.inventory.poll();
 						
-			if (!this.getDatabase().getPost(topPosts[i]).isLegitimate()) {
+			if (!this.getDatabase().getPost(topPosts[i]).isLegitimate() && RandomHelper.nextDouble() <= 0.1) {
 				this.infected = true;
+				this.share(new int[]{topPosts[i]});
 			}
 		}
 		
@@ -50,7 +61,9 @@ public class User extends Member {
 		neighbours.forEach(neighbour -> userList.add((Member)neighbour));
 		
 		for (int i = 0; i < postList.length; i++) {
-			if (RandomHelper.nextDouble() <= 0.0191) {
+			double baseProbability = RandomHelper.nextDouble();
+			double shareProbability = baseProbability;
+			if (RandomHelper.nextDouble() <= shareProbability) {
 				for (int y = 0; y < userList.size(); y++) {
 					userList.get(y).receivePost(postList[i]);
 				}
@@ -70,5 +83,9 @@ public class User extends Member {
 	
 	public boolean isSusceptible() {
 		return !this.infected;
+	}
+	
+	public double getBias() {
+		return this.bias;
 	}
 }

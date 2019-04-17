@@ -12,7 +12,7 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 	public Context<Object> build(Context<Object> context) {
 		context.setId("socialite");
 		
-		// Create network for users to be placed in
+		// Initialise network for users to be placed in
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("social network", context, false);
 		Network<Object> network = netBuilder.buildNetwork();
 		
@@ -31,14 +31,10 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 			System.out.println("Generating user: " + i);
 			userList[i] = new User(network, database);
 			context.add(userList[i]);
-
-			for (int j = 0; j < 5; j++) {
-				userList[i].receivePost(0);
-			}
 		}
 		
 		final int DEGREE = 4;
-		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.5, DEGREE, true);
+		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.1, DEGREE, true);
 		NetworkHelper.constructRingLattice(userList, network, DEGREE);
 		
 		System.out.println("Generating small world network...");
@@ -47,8 +43,9 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		
 		Distributor distributor = new Distributor(network, database);
 		context.add(distributor);
-		for (int i = 0; i < 100; i++) {
-			network.addEdge(distributor, userList[RandomHelper.nextIntFromTo(0, userList.length - 1)]);
+		for (int i = 0; i < 1; i++) {
+			//network.addEdge(distributor, userList[RandomHelper.nextIntFromTo(0, userList.length - 1)]);
+			network.addEdge(distributor, userList[0]);
 		}
 		
 		return context;
