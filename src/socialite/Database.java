@@ -9,6 +9,10 @@ public class Database {
 		this.postList = postList;
 	}
 	
+	public Database() {
+		this(new ArrayList<Post>());
+	}
+
 	public Post getPost(int index) {
 		return this.postList.get(index);
 	}

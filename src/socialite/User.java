@@ -1,91 +1,48 @@
 package socialite;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
-import repast.simphony.engine.schedule.ScheduledMethod;
-import repast.simphony.random.RandomHelper;
 import repast.simphony.space.graph.Network;
 
-public class User extends Member {
-	private Queue<Integer> inventory;
-	private boolean infected;
+public abstract class User {
+	private Network<Object> network;
+	private Database database;
+	private ArrayList<User> neighbourList;
 	
-	// Proposed new variables
-	private double reportProbability;
-	private double counterProbability;
-	private double gullibility;
-	private double bias;
-	private int age;
-	
+	// Define User with references to the network and database
 	public User(Network<Object> network, Database database) {
-		super(network, database);
-		
-		this.inventory = new LinkedList<Integer>();
-		this.infected = false;
-		this.bias = RandomHelper.nextDoubleFromTo(-5, 5);
+		this.network = network;
+		this.database = database;
 	}
 	
-	@ScheduledMethod(start = 1, interval = 1)
-	public void run() {
-		if (RandomHelper.nextDouble() < 0.583) {
-			this.check();
-		}
-	}
-	
-	public int[] check() {
-		int numPosts;
-		if (this.inventory.size() < 10) {
-			numPosts = this.inventory.size();
-		} else {
-			numPosts = 10;
-		}
-						
-		int[] topPosts = new int[numPosts];
-		for (int i = 0; i < topPosts.length; i++) {
-			topPosts[i] = this.inventory.poll();
-						
-			if (!this.getDatabase().getPost(topPosts[i]).isLegitimate() && RandomHelper.nextDouble() <= 0.1) {
-				this.infected = true;
-				this.share(new int[]{topPosts[i]});
-			}
-		}
-		
-		return topPosts;
-	}
-	
-	public void share(int[] postList) {
-		ArrayList<Member> userList = new ArrayList<Member>();
+	// Cache neighbours in faster & more accessible format (only call this after network has been created)
+	public void init() {
+		neighbourList = new ArrayList<User>();
 		Iterable<Object> neighbours = this.getNetwork().getAdjacent(this);
-		neighbours.forEach(neighbour -> userList.add((Member)neighbour));
-		
-		for (int i = 0; i < postList.length; i++) {
-			double baseProbability = RandomHelper.nextDouble();
-			double shareProbability = baseProbability;
-			if (RandomHelper.nextDouble() <= shareProbability) {
-				for (int y = 0; y < userList.size(); y++) {
-					userList.get(y).receivePost(postList[i]);
-				}
-			}
-		}
+		neighbours.forEach(neighbour -> neighbourList.add((User)neighbour));
 	}
 	
-	public void receivePost(int postID) {
-		if (!this.inventory.contains(postID)) {
-			this.inventory.add(postID);
-		}
+	// Method intended to run every X timesteps (customised using Java annotations)
+	public abstract void run();
+	
+	// Method serving as an event handler when a post is received from a neighbour
+	public abstract void receivePost(int postID);
+	
+	// Method serving as an event handler when a post is shared with neighbours
+	public abstract void sharePost(int postID);
+	
+	// Get reference to database
+	public Database getDatabase() {
+		return this.database;
 	}
 	
-	public boolean isInfected() {
-		return this.infected;
+	// Get reference to network
+	public Network<Object> getNetwork() {
+		return this.network;
 	}
 	
-	public boolean isSusceptible() {
-		return !this.infected;
-	}
-	
-	public double getBias() {
-		return this.bias;
+	// Get referene to user's neighbours
+	public ArrayList<User> getNeighbours() {
+		return this.neighbourList;
 	}
 }

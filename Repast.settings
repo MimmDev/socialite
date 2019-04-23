@@ -12,6 +12,6 @@
     <string>SettingsRegistryId</string>
     <string>Repast.registry</string>
     <string>LastLoadedScenario</string>
-    <string>C:\Users\chris\eclipse-workspace\socialite\socialite.rs</string>
+    <string>/Users/chris/repo/socialite/socialite.rs</string>
   </hashtable>
 </simphony.settings.SettingsRegistry>
