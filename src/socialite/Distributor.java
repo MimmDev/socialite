@@ -26,7 +26,6 @@ public class Distributor extends User {
 	@ScheduledMethod(start = 1, interval = 1)
 	public void run() {
 		// Probability of creating a post
-		System.out.println(this.postProbability);
 		if (RandomHelper.nextDouble() <= this.postProbability) {
 			int postID = this.createPost();	
 			this.sharePost(postID);
@@ -34,13 +33,13 @@ public class Distributor extends User {
 	}
 	
 	public int createPost() {
-		boolean fakePost = false;
+		boolean legitimatePost = true;
 		if (RandomHelper.nextDouble() <= this.fakeProbability) {
-			fakePost = true;
+			legitimatePost = false;
 		}
 		
 		// TODO: Get num iterations for life
-		Post newPost = new Post(fakePost, this.bias, this.authority, 1);
+		Post newPost = new Post(legitimatePost, this.bias, this.authority, 1);
 		
 		this.getDatabase().addPost(newPost);
 		

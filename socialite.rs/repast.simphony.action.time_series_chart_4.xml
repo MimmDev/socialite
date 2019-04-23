@@ -21,18 +21,14 @@
   <showLegend>true</showLegend>
   <seriesIds>
     <entry>
-      <string>DatabaseSize</string>
+      <string>size</string>
       <SeriesData>
-        <label>DatabaseSize</label>
-        <color>
-          <red>0</red>
-          <green>0</green>
-          <blue>255</blue>
-          <alpha>255</alpha>
-        </color>
+        <label></label>
       </SeriesData>
     </entry>
   </seriesIds>
-  <dataValueIds/>
+  <dataValueIds>
+    <string>size</string>
+  </dataValueIds>
   <plotRangeLength>-1</plotRangeLength>
 </repast.simphony.chart2.engine.TimeSeriesChartDescriptor>

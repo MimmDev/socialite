@@ -45,9 +45,11 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		System.out.println("Small world network ready!");
 				
 		// Generate distributors
-		Distributor[] distributorList = new Distributor[2];
-		distributorList[0] = new Distributor(network, database, 0.5, 0.0, 0.9, 0.5, 0.001);
-		distributorList[1] = new Distributor(network, database, 0.1, -1.0, 0.1, 0.9, 1.0);
+		Distributor[] distributorList = new Distributor[1];
+		
+		// popularity, bias, authority, postProbability, fakeProbability
+//		distributorList[0] = new Distributor(network, database, 0.1, 0.0, 0.5, 1.0, 0.0);
+		distributorList[0] = new Distributor(network, database, 0.5, 0.0, 0.5, 1.0, 1.0);
 	
 		for (int i = 0; i < distributorList.length; i++) {
 			context.add(distributorList[i]);

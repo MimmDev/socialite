@@ -27,7 +27,7 @@ public class Consumer extends User {
 		
 		this.inventory = new LinkedList<Integer>();
 		this.infected = false;
-		this.bias = RandomHelper.nextDoubleFromTo(-5, 5);
+		this.bias = RandomHelper.nextDoubleFromTo(-1.0, 1.0);
 	}
 	
 	@ScheduledMethod(start = 1, interval = 1)
