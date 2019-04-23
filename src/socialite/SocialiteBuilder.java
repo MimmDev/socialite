@@ -36,18 +36,21 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.1, DEGREE, true);
 		NetworkHelper.constructRingLattice(consumerList, network, DEGREE);
 		
+		for (int i = 0; i < consumerList.length; i++) {
+			consumerList[i].init();		
+		}
+	
 		System.out.println("Generating small world network...");
 		network = test.createNetwork(network);
 		System.out.println("Small world network ready!");
-		
-		System.out.print("Before init distributor");
-		
+				
 		// Generate distributors
 		Distributor[] distributorList = new Distributor[2];
 		distributorList[0] = new Distributor(network, database, 0.5, 0.0, 0.9, 0.5, 0.001);
 		distributorList[1] = new Distributor(network, database, 0.1, -1.0, 0.1, 0.9, 1.0);
 	
 		for (int i = 0; i < distributorList.length; i++) {
+			context.add(distributorList[i]);
 			double popularity = distributorList[i].getPopularity();
 			
 			for (int y = 0; y < consumerList.length; y++) {
@@ -55,6 +58,8 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 					network.addEdge(distributorList[i], consumerList[y]);
 				}
 			}
+			
+			distributorList[i].init();
 		}
 		
 		return context;

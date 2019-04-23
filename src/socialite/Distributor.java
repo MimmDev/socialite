@@ -16,6 +16,7 @@ public class Distributor extends User {
 	public Distributor(Network<Object> network, Database database, double popularity, double bias, double authority, double postProbability, double fakeProbability) {
 		super(network, database);
 		
+		this.popularity = popularity;
 		this.bias = bias;
 		this.authority = authority;
 		this.postProbability = postProbability;
@@ -25,6 +26,7 @@ public class Distributor extends User {
 	@ScheduledMethod(start = 1, interval = 1)
 	public void run() {
 		// Probability of creating a post
+		System.out.println(this.postProbability);
 		if (RandomHelper.nextDouble() <= this.postProbability) {
 			int postID = this.createPost();	
 			this.sharePost(postID);
@@ -38,19 +40,17 @@ public class Distributor extends User {
 		}
 		
 		// TODO: Get num iterations for life
-		//this code is silly haha I ruined your code for you :)
-		//get ownd stupid dumb noob haha im beter then u
 		Post newPost = new Post(fakePost, this.bias, this.authority, 1);
 		
 		this.getDatabase().addPost(newPost);
 		
-		return this.getDatabase().size();
+		return this.getDatabase().size() - 1;
 	}
 	
 	public void sharePost(int postID) {
 		ArrayList<User> neighbours = this.getNeighbours();
 		for (int i = 0; i < neighbours.size(); i++) {
-			neighbours.get(i).receivePost(1);
+			neighbours.get(i).receivePost(postID);
 		}
 	}
 	

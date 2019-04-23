@@ -18,7 +18,7 @@ public abstract class User {
 	// Cache neighbours in faster & more accessible format (only call this after network has been created)
 	public void init() {
 		neighbourList = new ArrayList<User>();
-		Iterable<Object> neighbours = this.getNetwork().getAdjacent(this);
+		Iterable<Object> neighbours = this.network.getAdjacent(this);
 		neighbours.forEach(neighbour -> neighbourList.add((User)neighbour));
 	}
 	
