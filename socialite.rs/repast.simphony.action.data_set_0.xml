@@ -1,7 +1,6 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.6.0">
-  <name>DatabaseSet</name>
-  <type>NON_AGGREGATE</type>
-  <sourceType>socialite.Database</sourceType>
+  <name>InfectedSet</name>
+  <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -12,16 +11,26 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-699374388</hashCode>
+    <hashCode>-1527694589</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>size</string>
+      <string>ConsumerInfected</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>size</id>
-        <className>socialite.Database</className>
-        <methodName>size</methodName>
+        <id>ConsumerInfected</id>
+        <className>socialite.Consumer</className>
+        <methodName>isInfected</methodName>
+        <aggType>SUM</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ConsumerSusceptible</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ConsumerSusceptible</id>
+        <className>socialite.Consumer</className>
+        <methodName>isSusceptible</methodName>
+        <aggType>SUM</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

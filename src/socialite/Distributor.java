@@ -23,7 +23,7 @@ public class Distributor extends User {
 		this.fakeProbability = fakeProbability;
 	}
 	
-	@ScheduledMethod(start = 1, interval = 1)
+	@ScheduledMethod(start = 1, interval = 1, priority = 2.0)
 	public void run() {
 		// Probability of creating a post
 		if (RandomHelper.nextDouble() <= this.postProbability) {
@@ -39,7 +39,7 @@ public class Distributor extends User {
 		}
 		
 		// TODO: Get num iterations for life
-		Post newPost = new Post(legitimatePost, this.bias, this.authority, 1);
+		Post newPost = new Post(legitimatePost, this.bias, this.authority, ContextHelper.getCurrentIteration());
 		
 		this.getDatabase().addPost(newPost);
 		

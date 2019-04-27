@@ -12,28 +12,30 @@ public class Consumer extends User {
 	private Queue<Integer> inventory;
 	private boolean infected;
 	
-	// Proposed new variables
+	private boolean isFactChecker;
+	private double shareProbability;
+	private double checkProbability;
 	private double reportProbability;
 	private double counterProbability;
 	private double bias;
 	private int age;
 	
-	// Consumer constants (TODO: set via environment variables)
-	private final double CHECK_PROBABILITY = 0.583;
-	private final double SHARE_PROBABILITY = 0.0191;
-	
-	public Consumer(Network<Object> network, Database database) {
+	public Consumer(Network<Object> network, Database database, double bias, boolean isFactChecker, double shareProbability, double checkProbability) {
 		super(network, database);
+		
+		this.bias = bias;
+		this.isFactChecker = isFactChecker;
+		this.shareProbability = shareProbability;
+		this.checkProbability = checkProbability;
 		
 		this.inventory = new LinkedList<Integer>();
 		this.infected = false;
-		this.bias = RandomHelper.nextDoubleFromTo(-1.0, 1.0);
 	}
 	
-	@ScheduledMethod(start = 1, interval = 1)
+	@ScheduledMethod(start = 1, interval = 1, priority = 1.0)
 	public void run() {
 		// Probability for checking their feed each hour
-		if (RandomHelper.nextDouble() <= CHECK_PROBABILITY) {
+		if (RandomHelper.nextDouble() <= this.checkProbability) {
 			int[] topPosts = this.checkFeed();
 			this.readAndShare(topPosts);
 		}
@@ -41,13 +43,25 @@ public class Consumer extends User {
 	
 	private void readAndShare(int[] topPosts) {
 		for (int i=0; i < topPosts.length; i++) {
-			if (!this.getDatabase().getPost(topPosts[i]).isLegitimate()) {
-				this.infected = true;
-			}
+			Post currentPost = this.getDatabase().getPost(topPosts[i]);
 			
-			// Probability for sharing a post
-			if (RandomHelper.nextDouble() <= SHARE_PROBABILITY) {
-				this.sharePost(topPosts[i]);
+			if (this.isFactChecker && !currentPost.isLegitimate()) {
+				// TODO: Add reporting functionality
+			} else {
+				if (currentPost.getBias() > this.bias) {
+					this.bias += 0.01;
+				} else if (currentPost.getBias() < this.bias) {
+					this.bias -= 0.01;
+				}
+				
+				if (!currentPost.isLegitimate()) {
+					this.infected = true;
+				}
+				
+				// Probability for sharing a post
+				if (RandomHelper.nextDouble() <= this.shareProbability) {
+					this.sharePost(topPosts[i]);
+				}
 			}
 		}
 	}
@@ -74,14 +88,9 @@ public class Consumer extends User {
 		}
 	}
 	
-	public void sharePost(int postID) {
-		double baseProbability = RandomHelper.nextDouble();
-		double shareProbability = baseProbability;
-		
-		if (RandomHelper.nextDouble() <= shareProbability) {
-			for (int y = 0; y < this.getNeighbours().size(); y++) {
-				this.getNeighbours().get(y).receivePost(postID);
-			}
+	public void sharePost(int postID) {	
+		for (int y = 0; y < this.getNeighbours().size(); y++) {
+			this.getNeighbours().get(y).receivePost(postID);
 		}
 	}
 	

@@ -5,6 +5,7 @@ public class Post {
 	private double bias;
 	private double authority;
 	private int timeCreated;
+	private double rank;
 	
 	public Post(boolean legitimate, double bias, double authority, int timeCreated) {
 		this.legitimate = legitimate;
@@ -27,5 +28,13 @@ public class Post {
 	
 	public int getAge(int currentIteration) {
 		return currentIteration - timeCreated;
+	}
+	
+	public double getRank() {
+		return this.rank;
+	}
+	
+	public void setRank(double rank) {
+		this.rank = rank;
 	}
 }

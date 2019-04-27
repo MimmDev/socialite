@@ -2,8 +2,10 @@ package socialite;
 
 public class Ranking {
 	// Function returning a double based on a post's details combined with a consumer's details
-	public static double calculateRecommendation(Consumer consumer, Post post, int currentIteration) {
-		return evaluateAge(post.getAge(currentIteration)) + evaluateBias(post.getBias(), consumer.getBias());
+	public static double calculateRecommendation(Post post) {
+		int currentIteration = ContextHelper.getCurrentIteration();
+		
+		return evaluateAge(post.getAge(currentIteration)); // TODO: PLUS EVALUATE AUTHORITY
 	}
 	
 	// Function returning a double based on a post's age

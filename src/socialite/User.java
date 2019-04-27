@@ -41,7 +41,7 @@ public abstract class User {
 		return this.network;
 	}
 	
-	// Get referene to user's neighbours
+	// Get reference to user's neighbours
 	public ArrayList<User> getNeighbours() {
 		return this.neighbourList;
 	}
