@@ -18,7 +18,6 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 				
 		// Initialise database
 		Database database = new Database();
-		context.add(database);
 		
 		// Initialise network for users to be placed in
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("social network", context, false);
@@ -72,7 +71,7 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		legitimateDistributor.init();
 		
 		context.add(fakeNewsDistributor);
-		for (int i=0; i<1000; i++) {
+		for (int i=0; i<params.getInteger("NumConsumers")/10; i++) {
 			network.addEdge(fakeNewsDistributor, consumerList[i]);
 		}
 		fakeNewsDistributor.init();

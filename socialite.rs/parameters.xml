@@ -43,7 +43,7 @@
 									
 		/>
 				<parameter name="SmallWorldDegree" displayName="Small-World Degree" type="int" 
-						defaultValue="200" 
+						defaultValue="10" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
