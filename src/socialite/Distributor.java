@@ -27,19 +27,19 @@ public class Distributor extends User {
 	public void run() {
 		// Probability of creating a post
 		if (RandomHelper.nextDouble() <= this.postProbability) {
-			int postID = this.createPost();	
+			int postID = this.createPost(ContextHelper.getCurrentIteration());	
 			this.sharePost(postID);
 		}
 	}
 	
-	public int createPost() {
+	public int createPost(int currentIteration) {
 		boolean legitimatePost = true;
 		if (RandomHelper.nextDouble() <= this.fakeProbability) {
 			legitimatePost = false;
 		}
 		
 		// TODO: Get num iterations for life
-		Post newPost = new Post(legitimatePost, this.bias, this.authority, ContextHelper.getCurrentIteration());
+		Post newPost = new Post(legitimatePost, this.bias, this.authority, currentIteration);
 		
 		this.getDatabase().addPost(newPost);
 		
@@ -54,11 +54,26 @@ public class Distributor extends User {
 	}
 	
 	public void receivePost(int postID) {
-		// Do nothing
+		// Distributor doesn't act on posts which it receives via the network
 	}
 	
 	public double getPopularity() {
 		return this.popularity;
 	}
 	
+	public double getBias() {
+		return this.bias;
+	}
+	
+	public double getAuthority() {
+		return this.authority;
+	}
+	
+	public double getPostProbability() {
+		return this.postProbability;
+	}
+	
+	public double getFakeProbability() {
+		return this.fakeProbability;
+	}
 }

@@ -4,20 +4,14 @@ import repast.simphony.context.Context;
 import repast.simphony.context.space.graph.NetworkBuilder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.engine.environment.RunEnvironment;
-import repast.simphony.engine.schedule.ScheduleParameters;
 import repast.simphony.parameter.Parameters;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.graph.Network;
 import repast.simphony.context.space.graph.WattsBetaSmallWorldGenerator;
 
-public class SocialiteBuilder implements ContextBuilder<Object> {
-	private final int DEGREE = 4;
-			
+public class SocialiteBuilder implements ContextBuilder<Object> {			
 	public Context<Object> build(Context<Object> context) {
 		context.setId("socialite");
-		
-		System.out.println(ScheduleParameters.FIRST_PRIORITY);
-		System.out.println(ScheduleParameters.LAST_PRIORITY);
 		
 		// Get environment parameters
 		Parameters params = RunEnvironment.getInstance().getParameters();
@@ -38,41 +32,50 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 			// Construct bias in a way to make clustered users have similar bias
 			double bias = (i/(double)consumerList.length * 2) - 1.0;
 			
-			consumerList[i] = new Consumer(network, database, bias, false, params.getDouble("ShareProbability"), params.getDouble("ConsumerCheckProbability"));
+			boolean isFactChecker = false;
+			if (RandomHelper.nextDouble() <= params.getDouble("FactCheckerProbability")) {
+				isFactChecker = true;
+			}
+			
+			boolean isYoung = false;
+			if (RandomHelper.nextDouble() <= 0.057) {
+				isYoung = true;
+			}
+			
+			consumerList[i] = new Consumer(network, database, bias, isFactChecker, params.getDouble("ShareProbability"), params.getDouble("ConsumerCheckProbability"), isYoung);
 			context.add(consumerList[i]);
 		}
 		
 		// Generate small-world network
-		WattsBetaSmallWorldGenerator<Object> test = new WattsBetaSmallWorldGenerator(0.1, DEGREE, true);
-		NetworkHelper.constructRingLattice(consumerList, network, DEGREE);
+		WattsBetaSmallWorldGenerator<Object> smallWorldGenerator = new WattsBetaSmallWorldGenerator(params.getDouble("SmallWorldBeta"), params.getInteger("SmallWorldDegree"), true);
+		NetworkHelper.constructRingLattice(consumerList, network, params.getInteger("SmallWorldDegree"));
+	
+		System.out.println("Generating small world network...");
+		network = smallWorldGenerator.createNetwork(network);
+		System.out.println("Small world network ready!");
 		
 		for (int i = 0; i < consumerList.length; i++) {
 			consumerList[i].init();		
 		}
-	
-		System.out.println("Generating small world network...");
-		network = test.createNetwork(network);
-		System.out.println("Small world network ready!");
-				
-		// Generate distributors
-		Distributor[] distributorList = new Distributor[2];
 		
-		// popularity, bias, authority, postProbability, fakeProbability
-		distributorList[0] = new Distributor(network, database, 0.1, 1.0, 0.5, 0.1, 0.0);
-		distributorList[1] = new Distributor(network, database, 0.001, -1.0, 0.01, 1, 1.0);
+		Distributor legitimateDistributor = new Distributor(network, database, 1.0, 0.0, 0.5, 0.01, 0.0);
+		Distributor fakeNewsDistributor = new Distributor(network, database, 0.1, 1.0, 0.0, 1.0, 1.0);
 	
-		for (int i = 0; i < distributorList.length; i++) {
-			context.add(distributorList[i]);
-			double popularity = distributorList[i].getPopularity();
-			
-			for (int y = 0; y < consumerList.length; y++) {
-				if (RandomHelper.nextDouble() <= popularity) {
-					network.addEdge(distributorList[i], consumerList[y]);
-				}
+		context.add(legitimateDistributor);
+		double popularity = legitimateDistributor.getPopularity();
+		
+		for (int y = 0; y < consumerList.length; y++) {
+			if (RandomHelper.nextDouble() <= popularity) {
+				network.addEdge(legitimateDistributor, consumerList[y]);
 			}
-			
-			distributorList[i].init();
+		}	
+		legitimateDistributor.init();
+		
+		context.add(fakeNewsDistributor);
+		for (int i=0; i<1000; i++) {
+			network.addEdge(fakeNewsDistributor, consumerList[i]);
 		}
+		fakeNewsDistributor.init();
 		
 		return context;
 	}

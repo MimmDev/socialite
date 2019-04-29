@@ -18,9 +18,13 @@ public class Database {
 	
 	@ScheduledMethod(start = 1, interval = 1, priority = 3.0)
 	public void run() {
+		this.refreshRanks(ContextHelper.getCurrentIteration());
+	}
+	
+	public void refreshRanks(int currentIteration) {
 		for (int i=0; i<this.postList.size(); i++) {
 			Post currentPost = this.postList.get(i);
-			currentPost.setRank(Ranking.calculateRecommendation(currentPost));
+			currentPost.setRank(Ranking.calculateRecommendation(currentPost, currentIteration));
 		}
 	}
 

@@ -1,34 +1,33 @@
 package socialite;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
+import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.graph.Network;
 
 public class Consumer extends User {
-	private Queue<Integer> inventory;
+	private PriorityQueue<Integer> inventory;
 	private boolean infected;
 	
 	private boolean isFactChecker;
 	private double shareProbability;
 	private double checkProbability;
-	private double reportProbability;
-	private double counterProbability;
 	private double bias;
-	private int age;
+	private boolean isYoung;
 	
-	public Consumer(Network<Object> network, Database database, double bias, boolean isFactChecker, double shareProbability, double checkProbability) {
+	public Consumer(Network<Object> network, Database database, double bias, boolean isFactChecker, double shareProbability, double checkProbability, boolean isYoung) {
 		super(network, database);
 		
 		this.bias = bias;
 		this.isFactChecker = isFactChecker;
 		this.shareProbability = shareProbability;
 		this.checkProbability = checkProbability;
+		this.isYoung = isYoung;
 		
-		this.inventory = new LinkedList<Integer>();
+		this.inventory = new PriorityQueue<Integer>(1, new RankingComparator(database));
 		this.infected = false;
 	}
 	
@@ -46,21 +45,25 @@ public class Consumer extends User {
 			Post currentPost = this.getDatabase().getPost(topPosts[i]);
 			
 			if (this.isFactChecker && !currentPost.isLegitimate()) {
-				// TODO: Add reporting functionality
-			} else {
-				if (currentPost.getBias() > this.bias) {
-					this.bias += 0.01;
-				} else if (currentPost.getBias() < this.bias) {
-					this.bias -= 0.01;
-				}
-				
-				if (!currentPost.isLegitimate()) {
-					this.infected = true;
-				}
-				
-				// Probability for sharing a post
-				if (RandomHelper.nextDouble() <= this.shareProbability) {
-					this.sharePost(topPosts[i]);
+				currentPost.setBlacklisted(true);
+			} else if (!currentPost.isBlacklisted()) {
+				if (RunEnvironment.getInstance().getParameters().getBoolean("AgeImpactsTrust") && this.isYoung && currentPost.getAuthority() >= 0.7) {
+					// Ignore post
+				} else {
+					if (currentPost.getBias() > this.bias) {
+						this.bias += 0.01;
+					} else if (currentPost.getBias() < this.bias) {
+						this.bias -= 0.01;
+					}
+					
+					if (!currentPost.isLegitimate()) {
+						this.infected = true;
+					}
+					
+					// Probability for sharing a post
+					if (RandomHelper.nextDouble() <= this.shareProbability) {
+						this.sharePost(topPosts[i]);
+					}
 				}
 			}
 		}
@@ -105,5 +108,17 @@ public class Consumer extends User {
 	
 	public double getBias() {
 		return this.bias;
+	}
+	
+	public double getShareProbability() {
+		return this.shareProbability;
+	}
+	
+	public double getCheckProbability() {
+		return this.checkProbability;
+	}
+	
+	public boolean isFactChecker() {
+		return this.isFactChecker;
 	}
 }
