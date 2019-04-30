@@ -7,7 +7,7 @@
 									
 		/>
 				<parameter name="NumConsumers" displayName="Number of Consumers" type="int" 
-						defaultValue="10000" 
+						defaultValue="20" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									
@@ -43,7 +43,7 @@
 									
 		/>
 				<parameter name="SmallWorldDegree" displayName="Small-World Degree" type="int" 
-						defaultValue="200" 
+						defaultValue="4" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									

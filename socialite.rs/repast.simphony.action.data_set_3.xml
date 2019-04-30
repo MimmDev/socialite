@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.6.0">
-  <name>InfectedSet</name>
+  <name>BiasSet</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,26 +11,44 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1527694589</hashCode>
+    <hashCode>-711534779</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>ConsumerInfected</string>
+      <string>ConsumerBias</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerInfected</id>
+        <id>ConsumerBias</id>
         <className>socialite.Consumer</className>
-        <methodName>isInfected</methodName>
-        <aggType>SUM</aggType>
+        <methodName>getBias</methodName>
+        <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
     <entry>
-      <string>ConsumerSusceptible</string>
+      <string>ConsumerMinBias</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerSusceptible</id>
+        <id>ConsumerMinBias</id>
         <className>socialite.Consumer</className>
-        <methodName>isSusceptible</methodName>
-        <aggType>SUM</aggType>
+        <methodName>getBias</methodName>
+        <aggType>MIN</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ConsumerMaxBias</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ConsumerMaxBias</id>
+        <className>socialite.Consumer</className>
+        <methodName>getBias</methodName>
+        <aggType>MAX</aggType>
+      </repast.simphony.data2.engine.MethodDataSourceDefinition>
+    </entry>
+    <entry>
+      <string>ConsumerBiasSD</string>
+      <repast.simphony.data2.engine.MethodDataSourceDefinition>
+        <id>ConsumerBiasSD</id>
+        <className>socialite.Consumer</className>
+        <methodName>getBias</methodName>
+        <aggType>STD_DEV</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

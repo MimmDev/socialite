@@ -1,6 +1,7 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.6.0">
-  <name>BiasSet</name>
-  <type>AGGREGATE</type>
+  <name>DatabaseSet</name>
+  <type>NON_AGGREGATE</type>
+  <sourceType>socialite.Database</sourceType>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
   <inclRandomSeed>false</inclRandomSeed>
@@ -11,44 +12,16 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-711534779</hashCode>
+    <hashCode>-699374388</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map">
     <entry>
-      <string>ConsumerBias</string>
+      <string>size</string>
       <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerBias</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>MEAN</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ConsumerMinBias</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerMinBias</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>MIN</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ConsumerMaxBias</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerMaxBias</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>MAX</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ConsumerBiasSD</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerBiasSD</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>STD_DEV</aggType>
+        <id>size</id>
+        <className>socialite.Database</className>
+        <methodName>size</methodName>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
   </methodDataSources>

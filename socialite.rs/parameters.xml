@@ -13,7 +13,7 @@
 									
 		/>
 				<parameter name="SmallWorldBeta" displayName="Small-World Beta" type="double" 
-						defaultValue="0.5" 
+						defaultValue="0.1" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$DoubleConverter"
 									
@@ -43,7 +43,7 @@
 									
 		/>
 				<parameter name="SmallWorldDegree" displayName="Small-World Degree" type="int" 
-						defaultValue="10" 
+						defaultValue="200" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 									

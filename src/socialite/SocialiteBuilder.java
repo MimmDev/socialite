@@ -18,6 +18,7 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 				
 		// Initialise database
 		Database database = new Database();
+		//context.add(database);
 		
 		// Initialise network for users to be placed in
 		NetworkBuilder<Object> netBuilder = new NetworkBuilder<Object>("social network", context, false);
@@ -46,17 +47,17 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 		}
 		
 		// Generate small-world network
-		WattsBetaSmallWorldGenerator<Object> smallWorldGenerator = new WattsBetaSmallWorldGenerator(params.getDouble("SmallWorldBeta"), params.getInteger("SmallWorldDegree"), true);
-		NetworkHelper.constructRingLattice(consumerList, network, params.getInteger("SmallWorldDegree"));
-	
+		NetworkHelper.constructRingLattice(consumerList, network, params.getInteger("SmallWorldDegree"), params.getDouble("SmallWorldBeta"));
+				
+		// TODO: This whole process is a bit broken tbh
 		System.out.println("Generating small world network...");
-		network = smallWorldGenerator.createNetwork(network);
 		System.out.println("Small world network ready!");
 		
+		// TODO: THis is what's causing the code to break, but only if consumerList.init occurs after the small world has been generated
 		for (int i = 0; i < consumerList.length; i++) {
 			consumerList[i].init();		
 		}
-		
+
 		Distributor legitimateDistributor = new Distributor(network, database, 1.0, 0.0, 0.5, 0.01, 0.0);
 		Distributor fakeNewsDistributor = new Distributor(network, database, 0.1, 1.0, 0.0, 1.0, 1.0);
 	
