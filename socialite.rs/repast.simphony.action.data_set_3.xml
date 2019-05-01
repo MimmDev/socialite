@@ -24,33 +24,6 @@
         <aggType>MEAN</aggType>
       </repast.simphony.data2.engine.MethodDataSourceDefinition>
     </entry>
-    <entry>
-      <string>ConsumerMinBias</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerMinBias</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>MIN</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ConsumerMaxBias</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerMaxBias</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>MAX</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
-    <entry>
-      <string>ConsumerBiasSD</string>
-      <repast.simphony.data2.engine.MethodDataSourceDefinition>
-        <id>ConsumerBiasSD</id>
-        <className>socialite.Consumer</className>
-        <methodName>getBias</methodName>
-        <aggType>STD_DEV</aggType>
-      </repast.simphony.data2.engine.MethodDataSourceDefinition>
-    </entry>
   </methodDataSources>
   <countSources class="linked-hash-map"/>
   <customNADataSources class="linked-hash-map"/>

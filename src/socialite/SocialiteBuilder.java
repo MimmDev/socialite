@@ -58,7 +58,7 @@ public class SocialiteBuilder implements ContextBuilder<Object> {
 			consumerList[i].init();		
 		}
 
-		Distributor legitimateDistributor = new Distributor(network, database, 1.0, 0.0, 0.5, 0.01, 0.0);
+		Distributor legitimateDistributor = new Distributor(network, database, 1.0, 0.0, 0.9, 0.1, 0.0);
 		Distributor fakeNewsDistributor = new Distributor(network, database, 0.1, 1.0, 0.0, 1.0, 1.0);
 	
 		context.add(legitimateDistributor);

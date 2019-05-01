@@ -45,7 +45,9 @@ public class Consumer extends User {
 			Post currentPost = this.getDatabase().getPost(topPosts[i]);
 			
 			if (this.isFactChecker && !currentPost.isLegitimate()) {
-				currentPost.setBlacklisted(true);
+				if (RunEnvironment.getInstance().getParameters().getBoolean("FactCheckersWillReport")) {
+					currentPost.setBlacklisted(true);
+				}
 			} else if (!currentPost.isBlacklisted()) {
 				if (RunEnvironment.getInstance().getParameters().getBoolean("AgeImpactsTrust") && this.isYoung && currentPost.getAuthority() >= 0.7) {
 					// Ignore post
