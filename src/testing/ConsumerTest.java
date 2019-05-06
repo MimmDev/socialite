@@ -9,7 +9,7 @@ import socialite.Consumer;
 public class ConsumerTest {
 	@Test
 	public void consumerCreation() {
-		Consumer consumer = new Consumer(null, null, -1.0, false, 0.00191, 0.583);
+		Consumer consumer = new Consumer(null, null, -1.0, false, 0.00191, 0.583, false);
 		
 		assertEquals(consumer.getBias(), -1.0);
 		assertEquals(consumer.isFactChecker(), false);

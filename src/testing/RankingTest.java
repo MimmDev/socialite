@@ -66,7 +66,7 @@ public class RankingTest {
 		
 		database.refreshRanks(CURRENT_ITERATION);
 		
-		Consumer consumer = new Consumer(null, database, 0.0, false, 0.00191, 0.583);
+		Consumer consumer = new Consumer(null, database, 0.0, false, 0.00191, 0.583, false);
 		consumer.receivePost(4);
 		consumer.receivePost(2);
 		consumer.receivePost(1);

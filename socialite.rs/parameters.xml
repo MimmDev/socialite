@@ -49,7 +49,7 @@
 									
 		/>
 				<parameter name="AgeImpactsTrust" displayName="Age Impacts Trust" type="boolean" 
-						defaultValue="true" 
+						defaultValue="false" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$BooleanConverter"
 									

@@ -33,9 +33,4 @@ public class DistributorTest {
 		assertEquals(storedPost.isLegitimate(), false);
 		assertEquals(storedPost.getTimeCreated(), 10);
 	}
-	
-	@Test
-	public void postSharing() {
-		//assertEquals(0, 1);
-	}
 }
